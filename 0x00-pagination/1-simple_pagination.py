@@ -48,6 +48,6 @@ class Server:
         assert page_size > 0
         self.dataset()
         start_idx, end_idx = index_range(page, page_size)
-        if start_idx >= len(self.__dataset):
+        if start_idx >= len(self.dataset()):
             return []
-        return self.__dataset[start_idx:end_idx]
+        return self.dataset()[start_idx:end_idx]
