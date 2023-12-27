@@ -48,7 +48,7 @@ class Server:
         assert page_size > 0
         try:
             dataset = self.dataset()
-        except:
+        except FileNotFoundError:
             return []
         start_idx, end_idx = index_range(page, page_size)
         if start_idx >= len(dataset):
