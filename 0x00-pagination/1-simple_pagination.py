@@ -42,17 +42,11 @@ class Server:
         Returns the appropriate page of the dataset (i.e. the correct list
         of rows)
         """
-        assert page > 0
-        assert type(page) == int
-        assert type(page_size) == int
-        assert page_size > 0
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
         try:
             dataset = self.dataset()
         except FileNotFoundError:
             return []
         start_idx, end_idx = index_range(page, page_size)
-        end_idx = min(end_idx, len(dataset))
-
-        if start_idx >= end_idx:
-            return []
         return dataset[start_idx:end_idx]
