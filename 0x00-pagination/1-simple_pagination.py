@@ -51,6 +51,8 @@ class Server:
         except FileNotFoundError:
             return []
         start_idx, end_idx = index_range(page, page_size)
-        if start_idx >= len(dataset):
+        end_idx = min(end_idx, len(dataset))
+
+        if start_idx >= end_idx:
             return []
         return dataset[start_idx:end_idx]
