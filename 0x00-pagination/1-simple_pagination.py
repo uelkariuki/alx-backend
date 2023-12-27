@@ -50,4 +50,6 @@ class Server:
         if page <= 0 and page_size <= 0:
             return []
         start_idx, end_idx = index_range(page, page_size)
+        if start_idx >= len(self.__dataset):
+            return []
         return self.__dataset[start_idx:end_idx]
