@@ -40,26 +40,26 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-            """
-            Returns a dictionary of key-value pairs:
-            index, next_index, page_size and data
-            """
-            dataset = self.indexed_dataset()
-            assert index >= 0
-            assert index < len(dataset)
+        """
+        Returns a dictionary of key-value pairs:
+        index, next_index, page_size and data
+        """
+        dataset = self.indexed_dataset()
+        assert index >= 0
+        assert index < len(dataset)
 
-            result_data = []
-            next_index = index
-            for item in range(page_size):
-                # if row is deleted skip to where data is
-                while not dataset.get(next_index):
-                    next_index += 1
-                result_data.append(dataset.get(next_index))
+        result_data = []
+        next_index = index
+        for item in range(page_size):
+            # if row is deleted skip to where data is
+            while not dataset.get(next_index):
                 next_index += 1
+            result_data.append(dataset.get(next_index))
+            next_index += 1
 
-            return {
-                "index": index,
-                "data": result_data,
-                "page_size": page_size,
-                "next_index": next_index
-                }
+        return {
+            "index": index,
+            "data": result_data,
+            "page_size": page_size,
+            "next_index": next_index
+            }
