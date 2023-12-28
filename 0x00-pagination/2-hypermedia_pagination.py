@@ -54,9 +54,9 @@ class Server:
         page = page
         data = self.get_page(page, page_size)
         page_size = len(data)
-        start_idx, end_idx = Index_range.index_range(page, page_size)
+        # start_idx, end_idx = Index_range.index_range(page, page_size)
 
-        next_page = page + 1 if start_idx < total_pages and page_size > 0 else None
+        next_page = page + 1 if page_size > 1 else None
         prev_page = page - 1 if page > 1 else None
 
         return {
