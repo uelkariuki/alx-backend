@@ -6,8 +6,6 @@ import importlib
 import math
 from typing import Dict, List
 
-# Server = __import__('1-simple_pagination').Server
-# #Index_Range = __import__('0-simple_helper_function').index_range
 Index_range = importlib.import_module('0-simple_helper_function')
 
 
@@ -54,9 +52,8 @@ class Server:
         page = page
         data = self.get_page(page, page_size)
         page_size = len(data)
-        # start_idx, end_idx = Index_range.index_range(page, page_size)
 
-        next_page = page + 1 if page_size > 1 else None
+        next_page = page + 1 if page < total_pages else None
         prev_page = page - 1 if page > 1 else None
 
         return {
