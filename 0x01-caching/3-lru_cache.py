@@ -24,8 +24,8 @@ class LRUCache(BaseCaching):
         if key in self.cache_data:
             del self.cache_data[key]
         elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            last_value = self.cache_data.popitem(last=False)
-            print(f'DISCARD: {last_value[0]}')
+            least_value = self.cache_data.popitem(last=False)
+            print(f'DISCARD: {least_value[0]}')
         self.cache_data[key] = item
         self.cache_data.move_to_end(key)
 
