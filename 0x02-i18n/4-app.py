@@ -23,7 +23,7 @@ app.config.from_object(Config)
 @babel.localeselector
 def get_locale():
     """Determines the best match with the supported languages"""
-    if 'locale' in request.args:
+    if 'locale' in request.args and request.args.get('locale') in app.config['LANGUAGES']:
         return request.args.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
