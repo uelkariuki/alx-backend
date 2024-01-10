@@ -10,6 +10,14 @@ app = Flask(__name__)
 babel = Babel(app)
 
 
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
+
 class Config(object):
     """class Config"""
 
@@ -19,13 +27,6 @@ class Config(object):
 
 
 app.config.from_object(Config)
-
-users = {
-    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
-    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
-    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
-    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
-}
 
 
 @babel.localeselector
@@ -38,11 +39,9 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-def get_user(user_id) -> Dict:
+def get_user(id):
     """get user method"""
-    if user_id in users:
-        return users.get(user_id)
-    return None
+    return users.get(int(id), 0)
 
 
 @app.before_request
@@ -50,13 +49,7 @@ def before_request():
     """
     use get_user to find a user if any, and set it as a global on flask.g.user
     """
-
-    user_id = request.args.get('login_as')
-    g.user = None
-    if user_id:
-        user = get_user(int(user_id))
-        if user:
-            g.user = user
+    setattr(g, 'user', get_user(request.args.get('login_as', 0)))
 
 
 @app.route('/', strict_slashes=False)
