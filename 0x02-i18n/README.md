@@ -34,3 +34,5 @@
 | 5. Mock logging in | [5-app.py](./5-app.py), [templates/5-index.html](./templates/5-index.html) |
 | 6. Use user locale | [6-app.py](./6-app.py), [templates/6-index.html](./templates/6-index.html) |
 | 7. Infer appropriate time zone | [7-app.py](./7-app.py), [templates/7-index.html](./templates/7-index.html) |
+| 8. Display the current time | [app.py](./app.py), [templates/index.html](./templates/index.html), [translations/en/LC_MESSAGES/messages.po](./translations/en/LC_MESSAGES/messages.po), [translations/fr/LC_MESSAGES/messages.po](./translations/fr/LC_MESSAGES/messages.po) |
+
