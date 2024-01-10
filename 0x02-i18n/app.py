@@ -62,19 +62,14 @@ def get_timezone() -> str:
 
     # Timezone parameter in URL parameters
     Timezone = request.args.get('timezone', '').strip()
-
     if not Timezone and g.user:
             Timezone = g.user['timezone']
-
     try:
             pytz.timezone(Timezone).zone
-
     except UnknownTimeZoneError:
         Timezone = app.config['BABEL_DEFAULT_TIMEZONE']
 
-
     return Timezone
-
 
 
 def get_user(id):
