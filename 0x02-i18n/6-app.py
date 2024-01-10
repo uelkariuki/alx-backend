@@ -33,22 +33,23 @@ app.config.from_object(Config)
 def get_locale():
     """Determines the best match with the supported languages"""
 
-	# locale from url parameters
+    # locale from url parameters
     force_locale = request.args.get('locale')
 
     if force_locale and force_locale in app.config['LANGUAGES']:
         return force_locale
 
-	# Locale from user settings
+    # Locale from user settings
     if g.user and g.user['locale'] in app.config['LANGUAGES']:
         return g.user['locale']
 
-	# Locale from request header
-    header_locale = request.accept_languages.best_match(app.config['LANGUAGES'])
+    # Locale from request header
+    header_locale = request.accept_languages.best_match(
+        app.config['LANGUAGES'])
     if header_locale:
         return header_locale
 
-	# Default locale
+    # Default locale
     return app.config['BABEL_DEFAULT_LOCALE']
 
 
