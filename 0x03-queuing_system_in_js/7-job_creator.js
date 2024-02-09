@@ -51,8 +51,8 @@ const jobs = [
 for (let i = 0; i < jobs.length; i++) {
   const job = queue
     .create('push_notification_code_2', {
-      phoneNumber: '4153518780',
-      message: 'This is the code to verify your account',
+      phoneNumber: jobs[i].phoneNumber,
+      message: jobs[i].message,
     })
     .save(function (err) {
       if (!err) {
@@ -62,12 +62,12 @@ for (let i = 0; i < jobs.length; i++) {
 
   job
     .on('complete', function (result) {
-      console.log(`Notification job created: ${job.id}`);
+      console.log(`Notification job #${job.id} completed`);
     })
-    .on('failing', function (errorMessage) {
-      console.log(`Notification job ${job.id} failed`);
+    .on('failed', function (errorMessage) {
+      console.log(`Notification job #${job.id} failed: ${errorMessage}`);
     })
     .on('progress', function (progress, data) {
-      console.log(`Notification job ${job.id} ${progress}% complete`);
+      console.log(`Notification job #${job.id} ${progress}% complete`);
     });
 }
